@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path
+
 from travel.views import home, about
 
 urlpatterns = [
