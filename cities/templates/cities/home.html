@@ -3,22 +3,22 @@
 
 {% block content %}
 
-<h1 class="text-center my-2">Список городов</h1>
+<h1 style="font-family: Roboto;" class="display-4 text-center my-2">Список городов</h1>
 
 <div class="row justify-content-center">
-    <div class="col-md-6 my-2">
+    <div class="col-md-6 my-3">
         <table class="table table-hover table-striped">
             {% for object in page_obj %}
             <tr>
                 <td>
                     <a href="{% url 'cities:detail' pk=object.pk %}">{{ object.name }}</a>
                 </td>
-                <td>
+                <td align="right">
                     <a href="{% url 'cities:update' pk=object.pk %}">
                         <button type="submit" class="btn btn-outline-primary">Редактировать</button>
                     </a>
                 </td>
-                <td>
+                <td align="right">
                     <a href="{% url 'cities:delete' pk=object.pk %}">
                         <button type="submit" class="btn btn-outline-danger">Удалить</button>
                     </a>
@@ -27,11 +27,38 @@
             {% endfor %}
 
             <tr>
-                <td></td>
-                <td></td>
-                <td>
+                <td colspan="2">
+
+                    <nav aria-label="Page navigation">
+                      <ul class="pagination pagination my-2">
+                        <li class="page-item">
+                            {% if page_obj.has_previous %}
+                                <a class="page-link" href="?page=1" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            {% endif %}
+                        </li>
+
+                          {% for page in page_obj.paginator.page_range %}
+                            <li class="page-item {% if page == page_obj.number %} active {% endif %}">
+                                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                            </li>
+                          {% endfor %}
+
+                        <li class="page-item">
+                            {% if page_obj.has_next %}
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            {% endif %}
+                        </li>
+                      </ul>
+                    </nav>
+
+                </td>
+                <td  align="right">
                     <a href="add/">
-                        <button type="submit" class="btn btn-outline-success">Добавить город</button>
+                        <button type="submit" class="btn btn-outline-success my-2">Добавить город</button>
                     </a>
                 </td>
             </tr>
@@ -40,6 +67,7 @@
     </div>
 </div>
 
+<!--
 <nav aria-label="Page navigation">
   <ul class="pagination pagination justify-content-center">
     <li class="page-item">
@@ -65,10 +93,12 @@
     </li>
   </ul>
 </nav>
+-->
+
 <!--
 <div class="row">
     <div class="col-md-4">
-        <form action="" method="post"> {% csrf_token %}
+        <form action="{% url 'cities:create' %}" method="post"> {% csrf_token %}
                 {{ form.as_p }}
             <input type="submit" value="Принять">
         </form>
