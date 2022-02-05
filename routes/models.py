@@ -16,11 +16,13 @@ class Route(models.Model):
                                 # null=True, blank=True,
                                 related_name='route_to_city_set',
                                 verbose_name='В какой город')
+    trains = models.ManyToManyField('trains.Train',
+                                    verbose_name='Список поездов')
 
     def __str__(self):
-        return f'Поезд №{self.name} из города {self.from_city} в {self.to_city}'
+        return f'Маршрут №{self.name} из города {self.from_city} в {self.to_city}'
 
     class Meta:
-        verbose_name = 'Поезд'
-        verbose_name_plural = 'поезда'
-        ordering = ['travel_time']
+        verbose_name = 'Маршрут'
+        verbose_name_plural = 'маршруты'
+        ordering = ['travel_times']
