@@ -24,16 +24,9 @@ def home(request, pk=None):
         if form.is_valid():
             print(form.cleaned_data)
             form.save()
-    # if pk:
-    #     # city = City.objects.filter(id=pk).first()
-    #     # city = City.objects.get(id=pk)
-    #     city = get_object_or_404(City, id=pk)
-    #
-    #     context = {'object': city}
-    #     return render(request, 'cities/detail.html', context)
     form = CityForm()
     qs = City.objects.all()
-    lst = Paginator(qs, 3)
+    lst = Paginator(qs, 5)
     page_number = request.GET.get('page')
     page_obj = lst.get_page(page_number)
     context = {'page_obj': page_obj, 'form': form}
@@ -72,7 +65,7 @@ class CityDeleteView(SuccessMessageMixin, DeleteView):
 
 
 class CityListView(ListView):
-    paginate_by = 3
+    paginate_by = 5
     model = City
     template_name = 'cities/home.html'
 

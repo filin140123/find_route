@@ -23,12 +23,12 @@
                 <td>{{ object.to_city }}</td>
                 <td>{{ object.travel_time }} ч.</td>
                 <td align="right">
-                    {#<a href="{% url 'trains:update' pk=object.pk %}">#}
+                    <a href="{% url 'trains:update' pk=object.pk %}">
                         <button type="submit" class="btn btn-outline-primary">Редактировать</button>
                     </a>
                 </td>
                 <td align="right">
-                    {#<a href="{% url 'trains:delete' pk=object.pk %}">#}
+                    <a href="{% url 'trains:delete' pk=object.pk %}">
                         <button type="submit" class="btn btn-outline-danger">Удалить</button>
                     </a>
                 </td>

@@ -42,4 +42,39 @@ def get_routes(request, form) -> dict:
         right_routes = [r for r in all_routes if all(city in r for city in _cities)]
         if not right_routes:
             raise ValueError('Маршрут через эти города невозможен')
+    else:
+        right_routes = all_routes
+
+    routes = []
+    all_trains = {}
+    for q in qs:
+        all_trains.setdefault((q.from_city_id, q.to_city_id), [])
+        all_trains[(q.from_city_id, q.to_city_id)].append(q)
+    for r in right_routes:
+        tmp = {'trains': []}
+        total_time = 0
+        for i in range(len(r) - 1):
+            qs = all_trains[(r[i], r[i+1])]
+            q = qs[0]
+            total_time += q.travel_time
+            tmp['trains'].append(qs)
+        tmp['total_time'] = total_time
+        if total_time <= traveling_time:
+            routes.append(tmp)
+    if not routes:
+        raise ValueError("Время в пути больше заданного")
+
+    sorted_routes = []
+    if len(routes) == 1:
+        sorted_routes = routes
+    else:
+        times = sorted(list(set(r['total_time'] for r in routes)))
+        for time in times:
+            for route in routes:
+                if time == route['total_time']:
+                    sorted_routes.append(route)
+
+    context['routes'] = sorted_routes
+    context['cities'] = {'from_city': from_city.name, 'to_city': to_city.name}
+
     return context
