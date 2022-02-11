@@ -22,17 +22,17 @@ def get_graph(qs):
 
 
 def get_routes(request, form) -> dict:
-    context = {'form': form}
-    qs = Train.objects.all()
+    context = {"form": form}
+    qs = Train.objects.all().select_related('from_city', 'to_city')
     graph = get_graph(qs)
     data = form.cleaned_data
-    from_city = data['from_city']
-    to_city = data['to_city']
-    cities = data['cities']
-    traveling_time = data['traveling_time']
+    from_city = data["from_city"]
+    to_city = data["to_city"]
+    cities = data["cities"]
+    traveling_time = data["traveling_time"]
     all_routes = list(dfs_paths(graph, from_city.id, to_city.id))
     if not len(all_routes):
-        raise ValueError('Подходящего маршрута не существует')
+        raise ValueError("Подходящего маршрута не существует")
     if cities:
         _cities = [city.id for city in cities]
         # right_routes = []
@@ -41,7 +41,7 @@ def get_routes(request, form) -> dict:
         #         right_routes.append(r)
         right_routes = [r for r in all_routes if all(city in r for city in _cities)]
         if not right_routes:
-            raise ValueError('Маршрут через эти города невозможен')
+            raise ValueError("Маршрут через эти города невозможен")
     else:
         right_routes = all_routes
 
@@ -50,15 +50,15 @@ def get_routes(request, form) -> dict:
     for q in qs:
         all_trains.setdefault((q.from_city_id, q.to_city_id), [])
         all_trains[(q.from_city_id, q.to_city_id)].append(q)
-    for r in right_routes:
-        tmp = {'trains': []}
+    for route in right_routes:
+        tmp = {"trains": []}
         total_time = 0
-        for i in range(len(r) - 1):
-            qs = all_trains[(r[i], r[i+1])]
+        for i in range(len(route) - 1):
+            qs = all_trains[(route[i], route[i + 1])]
             q = qs[0]
             total_time += q.travel_time
-            tmp['trains'].append(qs)
-        tmp['total_time'] = total_time
+            tmp["trains"].append(q)
+        tmp["total_time"] = total_time
         if total_time <= traveling_time:
             routes.append(tmp)
     if not routes:
@@ -68,13 +68,13 @@ def get_routes(request, form) -> dict:
     if len(routes) == 1:
         sorted_routes = routes
     else:
-        times = sorted(list(set(r['total_time'] for r in routes)))
+        times = sorted(list(set(r["total_time"] for r in routes)))
         for time in times:
             for route in routes:
-                if time == route['total_time']:
+                if time == route["total_time"]:
                     sorted_routes.append(route)
 
-    context['routes'] = sorted_routes
-    context['cities'] = {'from_city': from_city.name, 'to_city': to_city.name}
+    context["routes"] = sorted_routes
+    context["cities"] = {"from_city": from_city, "to_city": to_city}
 
     return context

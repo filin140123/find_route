@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Маршрут{% endblock %}
+
+{% block content %}
+
+<h1 class="display-4 text-center my-2">Маршрут {{ object.from_city }}—{{ object.to_city }}</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-10 my-2">
+        <table class="table table-hover table-striped">
+            <tr>
+                <th>Название</th>
+                <th>Откуда</th>
+                <th>Куда</th>
+                <th>Время в пути</th>
+                <th>Список поездов по маршруту</th>
+            </tr>
+            <tr>
+                <td>{{ object.name }}</td>
+                <td>{{ object.from_city }}</td>
+                <td>{{ object.to_city }}</td>
+                <td>{{ object.travel_times }} ч.</td>
+                <td>
+                    {% for train in object.trains.all %}
+                    <p>{{ train }}</p>
+                    {% endfor %}
+                </td>
+            <tr>
+                <td colspan="4"></td>
+                <td align="right">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'delete' pk=object.pk %}">
+                        <button type="submit" class="btn btn-outline-danger">Удалить</button>
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

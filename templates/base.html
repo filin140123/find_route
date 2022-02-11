@@ -4,6 +4,7 @@
 {% url 'trains:create' as trains_create_url %}
 {% url 'home' as routes_home_url %}
 {% url 'find_routes' as find_routes_url %}
+{% url 'list' as route_list %}
 {% load static %}
 
 <!doctype html>
@@ -30,7 +31,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary container">
       <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'home' %}">Найти маршрут</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,9 +46,9 @@
               <a class="nav-link {% if request.path == trains_home_url %} active {% endif %}" href="{% url 'trains:home' %}">Поезда</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Пункт меню</a>
+              <a class="nav-link {% if request.path == route_list %} active {% endif %}" href="{% url 'list' %}">Маршруты</a>
             </li>
-
+            {% if user.is_authenticated %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle {% if request.path == cities_create_url or request.path == trains_create_url %} active {% endif %}" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Добавить
@@ -57,6 +58,23 @@
                 <li><a class="dropdown-item" href="{% url 'trains:create' %}">Новый поезд</a></li>
               </ul>
             </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#}">Добавить</a>
+            </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'accounts:login' %}">Войти</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'accounts:registration' %}">Регистрация</a>
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -66,42 +84,42 @@
       {% block content %} {% endblock %}
     </div>
 
-    <nav class="navbar fixed-bottom bg-primary justify-content-center">
-    <div class="navigation">
-      <ul>
-        <li class="list {% if request.path == routes_home_url or request.path == find_routes_url %} active {% endif %}">
-          <a href="#">
-            <span class="icon">
-              <ion-icon name="analytics-outline"></ion-icon>
-            </span>
-            <span class="text">Маршрут</span>
-          </a>
-        <li class="list {% if request.path == cities_home_url %} active {% endif %}">
-          <a href="#">
-            <span class="icon">
-              <ion-icon name="business-outline"></ion-icon>
-            </span>
-            <span class="text">Города</span>
-          </a>
-        <li class="list {% if request.path == trains_home_url %} active {% endif %}">
-          <a href="#">
-            <span class="icon">
-              <ion-icon name="train-outline"></ion-icon>
-            </span>
-            <span class="text">Поезда</span>
-          </a>
-        <li class="list {% if request.path == cities_create_url or request.path == trains_create_url %} active {% endif %}">
-          <a href="#">
-            <span class="icon">
-              <ion-icon name="add-circle-outline"></ion-icon>
-            </span>
-            <span class="text">Добавить</span>
-          </a>
-        </li>
-          <div class="indicator"></div>
-      </ul>
-    </div>
-  </nav>
+<!--    <nav class="navbar fixed-bottom bg-primary justify-content-center">-->
+<!--    <div class="navigation">-->
+<!--      <ul>-->
+<!--        <li class="list {% if request.path == routes_home_url or request.path == find_routes_url %} active {% endif %}">-->
+<!--          <a href="#">-->
+<!--            <span class="icon">-->
+<!--              <ion-icon name="analytics-outline"></ion-icon>-->
+<!--            </span>-->
+<!--            <span class="text">Маршрут</span>-->
+<!--          </a>-->
+<!--        <li class="list {% if request.path == cities_home_url %} active {% endif %}">-->
+<!--          <a href="#">-->
+<!--            <span class="icon">-->
+<!--              <ion-icon name="business-outline"></ion-icon>-->
+<!--            </span>-->
+<!--            <span class="text">Города</span>-->
+<!--          </a>-->
+<!--        <li class="list {% if request.path == trains_home_url %} active {% endif %}">-->
+<!--          <a href="#">-->
+<!--            <span class="icon">-->
+<!--              <ion-icon name="train-outline"></ion-icon>-->
+<!--            </span>-->
+<!--            <span class="text">Поезда</span>-->
+<!--          </a>-->
+<!--        <li class="list {% if request.path == cities_create_url or request.path == trains_create_url %} active {% endif %}">-->
+<!--          <a href="#">-->
+<!--            <span class="icon">-->
+<!--              <ion-icon name="add-circle-outline"></ion-icon>-->
+<!--            </span>-->
+<!--            <span class="text">Добавить</span>-->
+<!--          </a>-->
+<!--        </li>-->
+<!--          <div class="indicator"></div>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </nav>-->
 
     <div class="container">
       <div class="row">
@@ -128,6 +146,7 @@
         </div>
       </div>
     </div>
+    <br>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
