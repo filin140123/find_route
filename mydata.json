@@ -3,112 +3,112 @@
   "model": "cities.city",
   "pk": 1,
   "fields": {
-    "name": "Берлин"
+    "name": "Р‘РµСЂР»РёРЅ"
   }
 },
 {
   "model": "cities.city",
   "pk": 2,
   "fields": {
-    "name": "Таллин"
+    "name": "РўР°Р»Р»РёРЅ"
   }
 },
 {
   "model": "cities.city",
   "pk": 3,
   "fields": {
-    "name": "Варшава"
+    "name": "Р’Р°СЂС€Р°РІР°"
   }
 },
 {
   "model": "cities.city",
   "pk": 5,
   "fields": {
-    "name": "Лондон"
+    "name": "Р›РѕРЅРґРѕРЅ"
   }
 },
 {
   "model": "cities.city",
   "pk": 7,
   "fields": {
-    "name": "Амстердам"
+    "name": "РђРјСЃС‚РµСЂРґР°Рј"
   }
 },
 {
   "model": "cities.city",
   "pk": 8,
   "fields": {
-    "name": "Уфа"
+    "name": "РЈС„Р°"
   }
 },
 {
   "model": "cities.city",
   "pk": 9,
   "fields": {
-    "name": "Екатеринбург"
+    "name": "Р•РєР°С‚РµСЂРёРЅР±СѓСЂРі"
   }
 },
 {
   "model": "cities.city",
   "pk": 10,
   "fields": {
-    "name": "Токио"
+    "name": "РўРѕРєРёРѕ"
   }
 },
 {
   "model": "cities.city",
   "pk": 11,
   "fields": {
-    "name": "Вашингтон"
+    "name": "Р’Р°С€РёРЅРіС‚РѕРЅ"
   }
 },
 {
   "model": "cities.city",
   "pk": 12,
   "fields": {
-    "name": "Рим"
+    "name": "Р РёРј"
   }
 },
 {
   "model": "cities.city",
   "pk": 13,
   "fields": {
-    "name": "Владивосток"
+    "name": "Р’Р»Р°РґРёРІРѕСЃС‚РѕРє"
   }
 },
 {
   "model": "cities.city",
   "pk": 14,
   "fields": {
-    "name": "Челябинск"
+    "name": "Р§РµР»СЏР±РёРЅСЃРє"
   }
 },
 {
   "model": "cities.city",
   "pk": 15,
   "fields": {
-    "name": "Москва"
+    "name": "РњРѕСЃРєРІР°"
   }
 },
 {
   "model": "cities.city",
   "pk": 20,
   "fields": {
-    "name": "Стерлитамак"
+    "name": "РЎС‚РµСЂР»РёС‚Р°РјР°Рє"
   }
 },
 {
   "model": "cities.city",
   "pk": 21,
   "fields": {
-    "name": "Владимир"
+    "name": "Р’Р»Р°РґРёРјРёСЂ"
   }
 },
 {
   "model": "cities.city",
   "pk": 22,
   "fields": {
-    "name": "Нью-Йорк"
+    "name": "РќСЊСЋ-Р™РѕСЂРє"
   }
 },
 {
@@ -129,7 +129,7 @@
   "model": "routes.route",
   "pk": 6,
   "fields": {
-    "name": "Т-Б 01",
+    "name": "Рў-Р‘ 01",
     "travel_times": 16,
     "from_city": 2,
     "to_city": 1,
@@ -143,7 +143,7 @@
   "model": "routes.route",
   "pk": 7,
   "fields": {
-    "name": "001-М-Уфа",
+    "name": "001-Рњ-РЈС„Р°",
     "travel_times": 31,
     "from_city": 15,
     "to_city": 8,
