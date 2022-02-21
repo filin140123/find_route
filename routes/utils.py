@@ -26,19 +26,13 @@ def get_routes(request, form) -> dict:
     qs = Train.objects.all().select_related('from_city', 'to_city')
     graph = get_graph(qs)
     data = form.cleaned_data
-    from_city = data["from_city"]
-    to_city = data["to_city"]
-    cities = data["cities"]
+    from_city, to_city, cities = data["from_city"], data["to_city"], data["cities"]
     traveling_time = data["traveling_time"]
     all_routes = list(dfs_paths(graph, from_city.id, to_city.id))
     if not len(all_routes):
         raise ValueError("Подходящего маршрута не существует")
     if cities:
         _cities = [city.id for city in cities]
-        # right_routes = []
-        # for r in all_routes:
-        #     if all(city in r for city in _cities):
-        #         right_routes.append(r)
         right_routes = [r for r in all_routes if all(city in r for city in _cities)]
         if not right_routes:
             raise ValueError("Маршрут через эти города невозможен")
@@ -74,7 +68,6 @@ def get_routes(request, form) -> dict:
                 if time == route["total_time"]:
                     sorted_routes.append(route)
 
-    context["routes"] = sorted_routes
-    context["cities"] = {"from_city": from_city, "to_city": to_city}
+    context["routes"], context["cities"] = sorted_routes, {"from_city": from_city, "to_city": to_city}
 
     return context
