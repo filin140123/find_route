@@ -3,6 +3,7 @@
 {% url 'trains:home' as trains_home_url %}
 {% url 'trains:create' as trains_create_url %}
 {% url 'home' as routes_home_url %}
+{% url 'about' as travel_about_url %}
 {% url 'find_routes' as find_routes_url %}
 {% url 'list' as route_list %}
 {% load static %}
@@ -76,7 +77,7 @@
             </li>
             {% endif %}
             <li class="nav-item">
-              <a class="nav-link" href="#">О проекте</a>
+              <a class="nav-link" href="{% url 'about' %}">О проекте</a>
             </li>
           </ul>
         </div>
