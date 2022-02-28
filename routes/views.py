@@ -12,7 +12,7 @@ from trains.models import Train
 
 
 def home(request):
-    form = RouteForm()
+    form = RouteForm(initial={'traveling_time': 999})
     return render(request, 'routes/home.html', {'form': form})
 
 
